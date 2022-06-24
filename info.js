@@ -1,0 +1,14 @@
+/*
+mount
+update
+unmount
+mount
+    -constructor
+    -render
+    -componentDidMount
+update
+    -render
+    -componentDidUpdate
+unmount
+    -componentWillUnmount
+    */ 
