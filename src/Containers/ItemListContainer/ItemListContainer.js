@@ -1,39 +1,36 @@
 import React, { useEffect, useState } from 'react'
-import ItemCount from '../../Components/ItemCount/ItemCount'
-import data  from '../../data'
+import CircularProgress from '@mui/material/CircularProgress';
+import ItemList from './ItemList';
+import { useParams } from 'react-router-dom';
 
 export const ItemListContainer = ({ greeting }) => {
 
-    const promesa = new Promise((res, rej) => {
-        setTimeout(() => {
-            res(data);
-        }, 2000);
-    });
+    const [products, setProducts] = useState([]);
+    const [loaded, setLoaded] = useState(true);
 
-    const [frutas, setFrutas] = useState([]);
+    const { categoryId } = useParams();
+
+
 
     useEffect(() => {
-        promesa.then(res => {
-            setFrutas(res);
-        }).catch(err => {
-            console.log(err);
-        });
-    }, []);
-
-    const onAdd = (count) => {
-        console.log('recibi: ', count);
-    }
+        const URL = categoryId
+            ? `https://fakestoreapi.com/products/category/${categoryId}`
+            : 'https://fakestoreapi.com/products'
+        fetch(URL)
+            .then(res => res.json())
+            .then(data => setProducts(data))
+            .catch(err => console.log(err))
+            .finally(() => setLoaded(false))
+    }, [categoryId]);
 
     return (
         <>
             <h1>{greeting}</h1>
-            <ItemCount initial={1} stock={5} onAdd={onAdd} />
-            {frutas.map((fruta)=>{
-                return <h1 key={fruta.id}>{fruta.name}</h1>
-            })}
+            {loaded ? <CircularProgress color="success" /> : <ItemList products={products} />}
         </>
     )
 }
+
 
 export default ItemListContainer
 
