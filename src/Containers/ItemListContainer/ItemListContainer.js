@@ -10,12 +10,10 @@ export const ItemListContainer = ({ greeting }) => {
 
     const { categoryId } = useParams();
 
-
-
     useEffect(() => {
         const URL = categoryId
             ? `https://fakestoreapi.com/products/category/${categoryId}`
-            : 'https://fakestoreapi.com/products'
+            : 'https://fakestoreapi.com/products';
         fetch(URL)
             .then(res => res.json())
             .then(data => setProducts(data))

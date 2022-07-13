@@ -1,42 +1,35 @@
-import React,{ useState, useEffect } from 'react'
+import React from 'react'
 
 const MiComponente = () => {
 
-    const [contador, setContador] = useState(0);
-    const [numero, setNumero] = useState(0);
-
-    useEffect(() => {
-        /*setTimeout(() => {
-            setNumero(numero + 1); 
-        }, 2000);*/
-        /*const interval = setInterval(() => {
-            console.log('intervalo');
-        }, 1000);
-        return () => {
-           clearInterval(interval);
-        }*/
-    },[]);
-    
-    const handlerClickSumar = () =>{
-        setContador(contador + 1);
+    const manejarClick = (event) => {
+       //console.dir(event.target);
+       //event.target.disabled = true;
+       //const button = document.getElementById('button');
+       //console.log(event.target === button);
+       console.log("click en boton");
+       event.stopPropagation();
     }
 
-    const handlerClickQuitar = () =>{
-        setContador(contador - 1);
+    const manejarCambio = (event) => {
+        console.dir(event.target);
     }
 
-    const reset = () => {
-        setContador(1);
+    const prevenido = (event) => {
+        console.log("prevenido");
+        event.preventDefault()
+    }
+
+    const manejarClickDiv = () => {
+        console.log("click en div");
     }
 
     return (
-        <>
-            <h1>{contador}</h1>
-            <button onClick={handlerClickSumar}>click me agregar</button>
-            <button onClick={handlerClickQuitar}>click me quitar</button>
-            <button onClick={reset}>reset</button>
-            <h1>{numero}</h1>
-        </>
+        <div onClick={manejarClickDiv}>
+            <button id="button" onClick={manejarClick}>Click</button>
+            <input type="text" onKeyDown={prevenido} onChange={manejarCambio}/>
+            <a onClick={prevenido} href='http://google.com'>Ir a google</a>
+        </div>
     );
 }
 

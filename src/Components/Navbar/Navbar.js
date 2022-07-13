@@ -20,12 +20,10 @@ const Navbar = () => {
 
     return (
         <header style={styles.container}>
-
             <div style={styles.branchContainer}>
                 <Link to="/"><img style={styles.logo} src={logo} alt="" /></Link>
                 <h1 style={styles.title}>Mi tienda online</h1>
             </div>
-
             <div style={styles.links}>
                 <nav>
                     {categories.map((category) => <NavLink key={category.id} style={styles.link} to={category.route}>{category.name}</NavLink>)}
